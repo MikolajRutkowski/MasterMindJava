@@ -28,6 +28,8 @@ class SineWave extends JPanel{
     private final List<Point2D.Double> points;
     private final Timer timer;
 
+
+    // do sinusa, tak zostawić może sie przyda
     public SineWave() {
         setPreferredSize(new Dimension((int)W, (int)H));
         points = new ArrayList<>();
