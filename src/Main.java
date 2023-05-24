@@ -11,7 +11,7 @@ public class Main {
         SineWave sw= new SineWave();
 
         f.setSize(w,h);
-        f.setTitle("ZAD 1 Program do rysowania funkcji dsdsd");
+        f.setTitle("ZAD 18 MasterMind");
         f.add(dc);
         f.add(sw);
         f.setDefaultCloseOperation((JFrame.EXIT_ON_CLOSE));
