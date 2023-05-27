@@ -1,12 +1,13 @@
 
 import  javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
     public static void main(String[] args) {
         int w = 650;
         int h = 650;
-        JFrame f =  new JFrame();
+        JFrame jFrame =  new JFrame();
         Drawing dc = new Drawing(w,h);
         //create a menu up
         JMenuBar menuBar= new JMenuBar();
@@ -18,17 +19,21 @@ public class Main {
         menuBar.add(menu);
         menuBar.add(exit);
 
-        f.setJMenuBar(menuBar);
+        jFrame.setJMenuBar(menuBar);
+        // add butons
+        JButton BlueButton = new JButton("Niebieski");
+        BlueButton.setBackground(Color.BLUE);
+        BlueButton.setSize(50,30);
+        BlueButton.setLocation();
+        jFrame.add(BlueButton);
 
 
+        jFrame.setSize(w,h);
+        jFrame.setTitle("ZAD 18 MasterMind");
+        jFrame.add(dc);
 
-
-        f.setSize(w,h);
-        f.setTitle("ZAD 18 MasterMind");
-        f.add(dc);
-
-        f.setDefaultCloseOperation((JFrame.EXIT_ON_CLOSE));
-        f.setVisible(true);
+        jFrame.setDefaultCloseOperation((JFrame.EXIT_ON_CLOSE));
+        jFrame.setVisible(true);
 
 
 

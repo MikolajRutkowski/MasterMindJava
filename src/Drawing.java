@@ -9,8 +9,10 @@ public class Drawing extends JComponent{
     Ball[] tablesBalls = new Ball[howmanyballs];
 
 public Drawing(int w,int h){
+    // tworzymy okno do rysowania
    width = w;
    height = h;
+   //tworzymy 40 kulek które będą zmianiać kolory
    int StarX = 50;
    int StarY = 50;
     for (int i = 0; i < howmanyballs; i++) {
