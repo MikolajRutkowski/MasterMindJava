@@ -1,12 +1,18 @@
 
+import org.w3c.dom.css.RGBColor;
+
 import  javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Main {
+public class Main extends JFrame implements ActionListener {
+   static public int whatWillBeColor;
 
     public static void main(String[] args) {
-        int w = 650;
-        int h = 650;
+        whatWillBeColor = 0 ;
+        int w = 850;
+        int h = 850;
         JFrame jFrame =  new JFrame();
         Drawing dc = new Drawing(w,h);
         //create a menu up
@@ -21,12 +27,71 @@ public class Main {
 
         jFrame.setJMenuBar(menuBar);
         // add butons
-        JButton BlueButton = new JButton("Niebieski");
-        BlueButton.setBackground(Color.BLUE);
-        BlueButton.setSize(50,30);
-        BlueButton.setLocation();
-        jFrame.add(BlueButton);
+        JButton[] tabelsOfCollors = new JButton[8];
+        tabelsOfCollors[0] = new JButton("Czerwony");
+        tabelsOfCollors[0].setBackground(Color.RED);
+        tabelsOfCollors[1] = new JButton("Pomarańczowy");
+        tabelsOfCollors[1].setBackground(Color.ORANGE);
+        tabelsOfCollors[2] = new JButton("Żółty");
+        tabelsOfCollors[2].setBackground(Color.YELLOW);
+        tabelsOfCollors[3] = new JButton("Zielony");
+        tabelsOfCollors[3].setBackground(Color.GREEN);
+        tabelsOfCollors[4] = new JButton("Niebieski");
+        tabelsOfCollors[4].setBackground(Color.BLUE);
+        tabelsOfCollors[5] = new JButton("Różowy");
+        tabelsOfCollors[5].setBackground(Color.pink);
+        tabelsOfCollors[6] = new JButton("Fioletowy");
+        tabelsOfCollors[6].setBackground(Color.magenta);
+        tabelsOfCollors[7] = new JButton("Cyjan");
+        tabelsOfCollors[7].setBackground(Color.CYAN);
 
+        int x = 400;
+        int y = 500;
+        for (int i = 0; i < 8; i++) {
+       tabelsOfCollors[i].setSize(100,40);
+       if(i==4){x = 400;}
+       if(i > 3){
+           tabelsOfCollors[i].setLocation(x,y);
+       }else {
+
+           tabelsOfCollors[i].setLocation(x ,y+40);
+       }
+       x = x + 100;
+       jFrame.add(tabelsOfCollors[i]);
+        }
+        //tablica przyciskow
+        x= 400;
+        y = 420;
+        JButton[] tableOfChose = new JButton[4];
+        for (int i = 0; i < 4; i++) {
+            tableOfChose[i] = new JButton("nr: " + (i+1) );
+            tableOfChose[i].setSize(100,80);
+            tableOfChose[i].setLocation(x,y);
+
+            x = x + 100;
+            tableOfChose[i].addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println( e.getActionCommand()) ;
+                    String a = e.getActionCommand();
+                    whatWillBeColor = Integer.parseInt(String.valueOf(a.charAt(4)));
+                    System.out.println(whatWillBeColor);
+                }
+            });
+
+
+            jFrame.add(tableOfChose[i]);
+        }
+
+
+        /*
+        public void actionPerformed(ActionEvent e){
+            if( e.getSource() instanceof JButton) {
+                ((JButton)e.getSource()).setBackground(Color.red);
+            }
+        }
+*/
 
         jFrame.setSize(w,h);
         jFrame.setTitle("ZAD 18 MasterMind");
@@ -39,4 +104,9 @@ public class Main {
 
       Drawing cos = new Drawing(100,100);
 }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getSource());
+    }
 }
