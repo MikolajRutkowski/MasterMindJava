@@ -1,12 +1,12 @@
 import  java.awt.*;
-import java.awt.geom.*;
 import javax.swing.*;
 public class Drawing extends JComponent{
 
     private int width ;
     private  int height ;
     int howmanyballs = 40;
-    Ball[] tablesBalls = new Ball[howmanyballs];
+    public Graphics2D g2d;
+  public   Ball[] tablesBalls = new Ball[howmanyballs];
 
 public Drawing(int w,int h){
     // tworzymy okno do rysowania
@@ -16,7 +16,7 @@ public Drawing(int w,int h){
    int StarX = 50;
    int StarY = 50;
     for (int i = 0; i < howmanyballs; i++) {
-        tablesBalls[i] = new Ball(StarX,StarY,Color.MAGENTA);
+        tablesBalls[i] = new Ball(StarX,StarY,Color.LIGHT_GRAY);
         StarX = StarX + 50;
         if(StarX == 250){
             StarY = StarY + 50;
@@ -25,8 +25,10 @@ public Drawing(int w,int h){
         
     }
 }
-protected  void  paintComponent(Graphics g){
-    Graphics2D g2d = (Graphics2D) g;
+@Override
+public   void paintComponent(Graphics g){
+    super.paintComponent(g);
+    g2d = (Graphics2D) g;
 
 
     g2d.drawLine(50,50,50,550);
@@ -38,10 +40,23 @@ protected  void  paintComponent(Graphics g){
 
     for (Ball i : tablesBalls
          ) {
+        g2d.setColor(i.BallColor);
         g2d.fill(i.drawMe());
     }
 
 
+}
+
+
+public void PaintBall(int id, int row, Color color){
+    tablesBalls[id].BallColor = color;
+
+    g2d.setColor(tablesBalls[id].BallColor);
+    g2d.fill(tablesBalls[id].drawMe());
+}
+
+public Ball returnBall(int id){
+    return tablesBalls[id];
 }
 
 }
