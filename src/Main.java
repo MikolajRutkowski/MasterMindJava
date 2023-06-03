@@ -5,15 +5,22 @@ import  javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main extends JFrame  {
    static public int whatWillBeColor;
   static public   int witchRowWeAre;
     static Drawing dc;
+    static boolean easyMode ;
+ static    int corretCollor ;
+   static int corretCollorAndLocasion ;
 
     public static void main(String[] args) {
+        corretCollorAndLocasion =  0;
+        corretCollor = 0;
         whatWillBeColor = 39 ;
         witchRowWeAre  = 39  ;
+        easyMode = true;
         int w = 850;
         int h = 850;
         JFrame jFrame =  new JFrame();
@@ -27,6 +34,24 @@ public class Main extends JFrame  {
 
         menuBar.add(menu);
         menuBar.add(exit);
+        Color[] tabOfCode = new Color[4];
+        //znajdz 4 kulku kodu:
+        if (easyMode){
+
+                tabOfCode[0] = randomColor();
+                System.out.println(tabOfCode[0]);
+                tabOfCode[1] = randomColor(tabOfCode[0]);
+                System.out.println(tabOfCode[1]);
+                tabOfCode[2] = randomColor(tabOfCode[0],tabOfCode[1]);
+                System.out.println(tabOfCode[2]);
+                tabOfCode[3] = randomColor(tabOfCode[0],tabOfCode[1],tabOfCode[2]);
+                System.out.println(tabOfCode[3]);
+
+        }
+        else {
+            //tu bedzie wersja dla powtarzających się kolorow
+        }
+
 
         jFrame.setJMenuBar(menuBar);
         // add butons
@@ -37,6 +62,46 @@ public class Main extends JFrame  {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int x = 0;
+                //glówna logika gry
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        if(tabOfCode[i] == dc.tablesBalls[witchRowWeAre - j  ].returColor()){
+                            System.out.println("JEJ TAKIE SAM KOLOR");
+                            corretCollor++;
+                            dc.PaintBall(witchRowWeAre-x  , 1 ,Color.red);
+                            x++;
+                            jFrame.repaint();
+                            break;
+                        }
+                    }
+
+                }
+                x = 0;
+                for (int i = 0; i < 4; i++) {
+                    if(tabOfCode[i] == dc.tablesBalls[witchRowWeAre-i ].returColor()){
+                        System.out.println("WOWOWOW TAKIE SAM KOLOR i miejsce ");
+                        corretCollor--;
+                        corretCollorAndLocasion++;
+                        dc.PaintBall(witchRowWeAre-x  , 1 ,Color.GREEN);
+                        jFrame.repaint();
+
+                    }
+                }
+            System.out.println("corretCollor = "+corretCollor);
+            System.out.println("corretCollorAndLocasion = "+corretCollorAndLocasion);
+
+            if(corretCollorAndLocasion == 4){
+                System.out.println("JEJEJ WYGRALES GRE");
+                for (int i = 0; i < 4; i++) {
+                    dc.PaintBall(i  , 0 ,tabOfCode[i]);
+                    jFrame.repaint();
+                }
+
+            }
+
+                corretCollor = 0;
+                corretCollorAndLocasion = 0;
                 witchRowWeAre = witchRowWeAre - 4;
                 whatWillBeColor = witchRowWeAre ;
             }
@@ -138,7 +203,7 @@ public class Main extends JFrame  {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println( e.getActionCommand()) ;
                     String a = e.getActionCommand();
-                    whatWillBeColor = witchRowWeAre -  Integer.parseInt(String.valueOf(a.charAt(4))) + 1 ;
+                    whatWillBeColor = witchRowWeAre - (4 - Integer.parseInt(String.valueOf(a.charAt(4))))  ;
                     System.out.println(whatWillBeColor);
                 }
             });
@@ -162,5 +227,59 @@ public class Main extends JFrame  {
       Drawing cos = new Drawing(100,100);
 }
 
+    public static Color randomColor(Color... exept) {
+        Color returnet = Color.gray;
+        boolean isOk = true;
+        while (isOk) {
+            int randomNum = ThreadLocalRandom.current().nextInt(1, 8);
+            switch (randomNum) {
+                case 1:
+                    returnet = Color.red;
 
-}
+                    break;
+                case 2:
+                    returnet = Color.ORANGE;
+
+                    break;
+                case 3:
+                    returnet = Color.YELLOW;
+
+                    break;
+                case 4:
+                    returnet = Color.GREEN;
+
+                    break;
+                case 5:
+                    returnet = Color.BLUE;
+
+                    break;
+                case 6:
+                    returnet = Color.PINK;
+
+                    break;
+                case 7:
+                    returnet = Color.magenta;
+
+                    break;
+                case 8:
+                    returnet = Color.CYAN;
+
+                    break;
+
+                default:
+                    System.out.println("Cos poszło nie ta");
+
+
+            }
+            isOk = false;
+            for (Color e :exept
+                 ) {
+                if(e == returnet){
+                    isOk = true;
+                }
+            }
+
+        }
+
+        return returnet;
+    }}

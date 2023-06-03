@@ -8,21 +8,37 @@ import java.awt.geom.*;
 
     int X;
     int Y;
+    int W;
+    int H;
      Color BallColor ;
     Graphics g;
 
-    //costruktor
+    //costruktory
     public Ball(int x, int y,Color newColor ){
     X= x;
     Y = y;
+    W= 50;
+    H = 50;
     BallColor = newColor;
 
     }
+    public  Ball(int x, int y, Color newColor,int w ,int h){
+        X= x;
+        Y = y;
+        W= w;
+        H =h;
+        BallColor = newColor;
+    }
+
     public Ellipse2D drawMe(){
-        Ellipse2D.Double cos  = new Ellipse2D.Double(X,Y,50,50);
-        System.out.println("Bede teraz tysowal kolko o stadardowych wymiarach w punktach :" + X + " " + Y);
+        Ellipse2D.Double cos  = new Ellipse2D.Double(X,Y,W,H);
+       // System.out.println("Bede teraz tysowal kolko o stadardowych wymiarach w punktach :" + X + " " + Y);
         return  cos;
 
+    }
+
+    public Color returColor(){
+        return BallColor;
     }
 
 }
